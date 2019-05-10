@@ -8,7 +8,14 @@ export class UdpService {
     this.server = dgram.createSocket('udp4');
 
     this.server.on('message', (msg, rinfo) => {
-      // console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+
+      let test: string = msg.toString();
+      if (test.charAt(0) === 'D') {
+        this.handleDataMessage(msg);
+      } else {
+        console.log('Unrecognized Message Type');
+      }
+
     });
 
     this.server.on('listening', () => {
@@ -17,6 +24,10 @@ export class UdpService {
     });
 
     this.server.bind(6000);
+  }
+
+  private handleDataMessage(msg: Buffer) {
+    console.log(`server got: ${msg}`);
   }
 
 
