@@ -26,6 +26,10 @@ export class UdpService {
     this.server.bind(6000);
   }
 
+  sendMessage() {
+
+  }
+
   private handleDataMessage(msg: Buffer) {
     console.log(`server got: ${msg}`);
   }

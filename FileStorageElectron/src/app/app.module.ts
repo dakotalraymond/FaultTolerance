@@ -20,6 +20,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { UdpService } from './services/udp.service';
 
+// Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule,
+          MatToolbarModule, } from '@angular/material';
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -33,8 +38,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    MatButtonModule,
+    MatToolbarModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
