@@ -8,6 +8,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { FileDropModule } from 'ngx-file-drop';
+
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -22,8 +24,16 @@ import { UdpService } from './services/udp.service';
 
 // Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule,
-          MatToolbarModule, } from '@angular/material';
+import { ProgressComponent } from './components/progress/progress.component';
+import {
+  MatButtonModule,
+  MatToolbarModule,
+  MatCardModule,
+  MatTableModule,
+  MatDividerModule,
+} from '@angular/material';
+import { DownloadComponent } from './components/download/download.component';
+import { UploadComponent } from './components/upload/upload.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -34,14 +44,21 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     HomeComponent,
+    DownloadComponent,
+    UploadComponent,
+    ProgressComponent,
     WebviewDirective
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    FileDropModule,
     HttpClientModule,
     MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
+    MatTableModule,
     MatToolbarModule,
     AppRoutingModule,
     TranslateModule.forRoot({

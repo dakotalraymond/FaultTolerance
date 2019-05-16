@@ -8,9 +8,8 @@ import { UdpService } from '../../services/udp.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(udpService: UdpService) { }
+  constructor(private udpService: UdpService) { }
 
   ngOnInit() {
   }
-
 }

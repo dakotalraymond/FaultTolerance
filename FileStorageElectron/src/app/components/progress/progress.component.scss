@@ -1,0 +1,19 @@
+.progress-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.red-circle {
+  //border-radius: 50%;
+  background-color: #f00;
+  width: 10px;
+  height: 10px;
+}
+
+div.green-circle {
+  //border-radius: 50%;
+  background-color: #2fcc00;
+  width: 10px;
+  height: 10px;
+}
