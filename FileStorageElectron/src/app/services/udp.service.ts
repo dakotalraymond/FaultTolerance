@@ -56,6 +56,7 @@ export class UdpService {
   }
 
   downloadFile(file: FileModel) {
+    this.progressSubject.next(null);
     this.cachedDataBuffers = [];
     this.isUploadMode = false;
     let fd = fs.openSync(`C:\\Users\\draymond\\Desktop\\retrievedFiles\\${file.name}`, 'w');
@@ -65,6 +66,7 @@ export class UdpService {
   }
 
   uploadFile(fileName: string, filePath: string) {
+    this.progressSubject.next(null);
     this.isUploadMode = true;
     let fileData = fs.readFileSync(filePath);
     let byteChunkCount = Math.ceil(fileData.length / 10);
@@ -75,14 +77,15 @@ export class UdpService {
   }
 
   private handleDataMessage(msg: Buffer) {
-    let valid = msg.readInt8(47);
+    let valid = msg.readInt8(48);
     if (valid) {
       this.progressSubject.next(new ProcessChunkStatus(true));
       let fileChunk = new FileChunkModel(undefined, undefined, undefined);
       fileChunk.name = msg.toString('ASCII', 1, 32).replace(/\0/g, '');
       fileChunk.position = msg.readUInt32LE(33);
-      fileChunk.data = Buffer.alloc(10);
-      msg.copy(fileChunk.data, 0, 37, 47);
+      let dataLength = msg.readInt8(37);
+      fileChunk.data = Buffer.alloc(dataLength);
+      msg.copy(fileChunk.data, 0, 38, 38 + dataLength);
       this.cachedData = fileChunk;
       this.writeCachedFilePart();
       this.sendMessageFromQueue();
@@ -97,7 +100,7 @@ export class UdpService {
   }
 
   private handleAckMessage(msg: Buffer) {
-    let valid = msg.readInt8(47);
+    let valid = msg.readInt8(48);
     if (valid) {
       this.progressSubject.next(new ProcessChunkStatus(true));
       this.sendMessageFromQueue();
@@ -137,7 +140,7 @@ export class UdpService {
 
   private enqueueWriteMessages(file: FileModel, data: Buffer) {
     for (let i = 0; i < file.byteChunkCount; i++) {
-      let messageBuf = Buffer.alloc(47);
+      let messageBuf = Buffer.alloc(48);
 
       messageBuf.write('W', 0, 1);
       messageBuf.write(file.name, 1, 32);
@@ -149,7 +152,11 @@ export class UdpService {
         dataWriteEnd = data.length;
       }
 
-      data.copy(messageBuf, 37, i * 10, dataWriteEnd);
+      let dataLength = dataWriteEnd - (i * 10);
+      console.log(`data length is ${dataLength}`);
+      messageBuf.writeIntLE(dataLength, 37, 1);
+
+      data.copy(messageBuf, 38, i * 10, dataWriteEnd);
 
       this.messageQueue.push(messageBuf);
     }

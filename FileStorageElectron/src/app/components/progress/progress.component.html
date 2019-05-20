@@ -1,10 +1,14 @@
-<div class="progress-container">
-  <span *ngFor="let chunk of chunkList">
-    <div *ngIf="chunk.succeeded" class="green-circle">
+<mat-card>
+  <h2>Transaction Progress</h2>
+  <div class="progress-container">
+    <span *ngFor="let chunk of chunkList">
+      <div *ngIf="chunk.succeeded" class="green-circle">
         <img/>
-    </div>
-    <div *ngIf="!chunk.succeeded" class="red-circle">
+      </div>
+      <div *ngIf="!chunk.succeeded" class="red-circle">
         <img/>
-    </div>
-  </span>
-</div>
+      </div>
+    </span>
+  </div>
+
+</mat-card>

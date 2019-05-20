@@ -17,7 +17,11 @@ export class ProgressComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.processSubscription = this.udpService.processProgress$.subscribe(x => {
-      this.chunkList.push(x);
+      if (!x) {
+        this.chunkList = [];
+      } else {
+        this.chunkList.push(x);
+      }
     });
   }
   ngOnDestroy(): void {

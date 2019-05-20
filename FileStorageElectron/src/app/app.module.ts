@@ -34,6 +34,7 @@ import {
 } from '@angular/material';
 import { DownloadComponent } from './components/download/download.component';
 import { UploadComponent } from './components/upload/upload.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DownloadComponent,
     UploadComponent,
     ProgressComponent,
+    SettingsComponent,
     WebviewDirective
   ],
   imports: [
