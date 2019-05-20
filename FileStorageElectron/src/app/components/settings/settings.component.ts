@@ -7,7 +7,7 @@ import { UdpService } from '../../services/udp.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit, OnDestroy {
-  constructor(private udpService: UdpService) { }
+  constructor(public udpService: UdpService) { }
 
   ngOnInit() {
   }

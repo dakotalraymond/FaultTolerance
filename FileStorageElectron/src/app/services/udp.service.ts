@@ -20,6 +20,9 @@ export class UdpService {
   private sendAddress = '127.0.0.1';
   private numberOfCopies = 5;
   viewDetailMode = true;
+  operationInProgress = false;
+  operationTime;
+  private startTime;
 
   private cachedDataVotes: FileChunkModel[] = [];
 
@@ -41,7 +44,8 @@ export class UdpService {
   }
 
   downloadFile(file: FileModel) {
-    this.updateProgress(null)
+    this.startOperation();
+    this.updateProgress(null);
     this.cachedDataVotes = [];
     let fd = fs.openSync(`C:\\Users\\draymond\\Desktop\\retrievedFiles\\${file.name}`, 'w');
     fs.closeSync(fd);
@@ -50,6 +54,7 @@ export class UdpService {
   }
 
   uploadFile(fileName: string, filePath: string) {
+    this.startOperation();
     this.updateProgress(null);
     let fileData = fs.readFileSync(filePath);
     let byteChunkCount = Math.ceil(fileData.length / 10);
@@ -57,6 +62,16 @@ export class UdpService {
     this.enqueueWriteMessages(file, fileData);
     this.sendMessageFromQueue();
     this.fileListSubject.next(file);
+  }
+
+  private startOperation() {
+    this.operationInProgress = true;
+    this.startTime = process.hrtime();
+  }
+
+  private endOperation() {
+    this.operationInProgress = false;
+    this.operationTime = process.hrtime(this.startTime);
   }
 
   private handleDataMessage(msg: Buffer) {
@@ -125,6 +140,8 @@ export class UdpService {
           console.log(`There was an error sending udp message: ${err}`);
         }
       });
+    } else {
+      this.endOperation();
     }
   }
 

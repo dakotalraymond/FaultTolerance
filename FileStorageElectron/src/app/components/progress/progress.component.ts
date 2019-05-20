@@ -13,7 +13,7 @@ export class ProgressComponent implements OnInit, OnDestroy {
 
   private processSubscription: Subscription;
 
-  constructor(private udpService: UdpService) { }
+  constructor(public udpService: UdpService) { }
 
   ngOnInit() {
     this.processSubscription = this.udpService.processProgress$.subscribe(x => {
