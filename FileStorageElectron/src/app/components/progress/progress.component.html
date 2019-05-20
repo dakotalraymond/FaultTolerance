@@ -1,6 +1,6 @@
 <mat-card>
-  <h2>Transaction Progress</h2>
-  <div class="progress-container">
+  <h2>Operation Progress</h2>
+  <div *ngIf="udpService.viewDetailMode" class="progress-container">
     <span *ngFor="let chunk of chunkList">
       <div *ngIf="chunk.succeeded" class="green-circle">
         <img/>
@@ -9,6 +9,9 @@
         <img/>
       </div>
     </span>
+  </div>
+  <div *ngIf="!udpService.viewDetailMode">
+    Other progress
   </div>
 
 </mat-card>
