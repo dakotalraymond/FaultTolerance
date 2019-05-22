@@ -33,6 +33,7 @@ import {
   MatDividerModule,
   MatProgressSpinnerModule,
   MatSlideToggleModule,
+  MatInputModule,
 } from '@angular/material';
 import { DownloadComponent } from './components/download/download.component';
 import { UploadComponent } from './components/upload/upload.component';
@@ -62,6 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatCardModule,
     MatDividerModule,
+    MatInputModule,
     MatTableModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,

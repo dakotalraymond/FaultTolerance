@@ -18,8 +18,9 @@ export class UdpService {
 
   private sendPort = 1982;
   private sendAddress = '127.0.0.1';
-  private numberOfCopies = 5;
+  numberOfCopies = 5;
   viewDetailMode = true;
+  outputDirectory = require('path').join(require('os').homedir(), 'Desktop');
   operationInProgress = false;
   operationTime;
   private startTime;
@@ -38,7 +39,7 @@ export class UdpService {
   }
 
   writeFileChunk(chunk: FileChunkModel) {
-    let fd = fs.openSync(`C:\\Users\\draymond\\Desktop\\retrievedFiles\\${chunk.name}`, 'a');
+    let fd = fs.openSync(`${this.outputDirectory}\\${chunk.name}`, 'a');
     fs.writeSync(fd, chunk.data, 0, chunk.data.length, chunk.position);
     fs.closeSync(fd);
   }
@@ -47,7 +48,7 @@ export class UdpService {
     this.startOperation();
     this.updateProgress(null);
     this.cachedDataVotes = [];
-    let fd = fs.openSync(`C:\\Users\\draymond\\Desktop\\retrievedFiles\\${file.name}`, 'w');
+    let fd = fs.openSync(`${this.outputDirectory}\\${file.name}`, 'w');
     fs.closeSync(fd);
     this.enqueueReadMessages(file);
     this.sendMessageFromQueue();

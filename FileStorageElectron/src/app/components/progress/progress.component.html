@@ -1,21 +1,36 @@
 <mat-card>
   <h2>Operation Progress</h2>
-  <div *ngIf="udpService.viewDetailMode" class="progress-container">
+  <div
+    *ngIf="udpService.viewDetailMode"
+    class="progress-container"
+  >
     <span *ngFor="let chunk of chunkList">
-      <div *ngIf="chunk.succeeded" class="green-circle">
-        <img/>
+      <div
+        *ngIf="chunk.succeeded"
+        class="green-circle"
+      >
+        <img />
       </div>
-      <div *ngIf="!chunk.succeeded" class="red-circle">
-        <img/>
+      <div
+        *ngIf="!chunk.succeeded"
+        class="red-circle"
+      >
+        <img />
       </div>
     </span>
   </div>
   <div *ngIf="!udpService.viewDetailMode">
-    <mat-spinner *ngIf="udpService.operationInProgress"
-                  [diameter]="30"></mat-spinner>
+    <mat-spinner
+      *ngIf="udpService.operationInProgress"
+      [diameter]="30"
+    ></mat-spinner>
   </div>
   <div *ngIf="udpService.operationTime">
-    The operation took {{udpService.operationTime[0]}} seconds and {{udpService.operationTime[1] / 1000000}} milliseconds
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+    The operation took {{udpService.operationTime[0]}} seconds and {{udpService.operationTime[1] / 1000000}}
+    milliseconds
   </div>
 
 </mat-card>
