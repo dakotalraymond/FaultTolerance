@@ -1,0 +1,19 @@
+<div>
+  <mat-form-field class="input-area">
+    <mat-label>Enter Message Here</mat-label>
+    <textarea
+      matInput
+      cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize"
+      cdkAutosizeMinRows="1"
+      [(ngModel)]="chatInput"
+      cdkAutosizeMaxRows="5"
+    ></textarea>
+  </mat-form-field>
+  <br />
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="handleSendClick()"
+  >Send</button>
+</div>

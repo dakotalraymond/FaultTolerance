@@ -1,0 +1,13 @@
+<div>
+  <div
+    *ngFor="let msg of messages"
+    style="width: 100%; float: right;"
+  >
+    <div [class]="msg.isReceivedMessage ? 'received' : 'sent'"
+    style="margin: 5px">
+      <mat-card>
+        <p>{{msg.message}}</p>
+      </mat-card>
+    </div>
+  </div>
+</div>

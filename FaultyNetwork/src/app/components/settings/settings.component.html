@@ -1,0 +1,17 @@
+<div>
+  <div>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Send Port" [(ngModel)]="sendPort">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Bound Port" [(ngModel)]="boundPort">
+    </mat-form-field>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="handleConnectClick()"
+  >Connect</button>
+</div>
